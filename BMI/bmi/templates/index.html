@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <title>BMI</title>
+</head>
+
+<body style="background-color: lightcyan">
+  <nav class="navbar bg-primary text-white">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">BMI Calculator</span>
+    </div>
+  </nav>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="col-lg-4 shadow mx-auto p-5 mt-5 bg-light">
+      <div>
+        Enter your Weight
+      </div>
+      <div class="input-group mb-3 mt-3">
+        <input type="text" class="form-control" placeholder="Weight" aria-label="Weight" aria-describedby="basic-addon2"
+          name="Weight" value="{{weight}}">
+        <span class="input-group-text" id="basic-addon2">(kg)</span>
+      </div>
+      <div>
+        Enter your Height
+      </div>
+      <div class="input-group mb-3 mt-3">
+        <input type="text" class="form-control" placeholder="Height" aria-label="Height" aria-describedby="basic-addon2"
+          name="Height" value="{{height}}">
+        <span class="input-group-text" id="basic-addon2">(cm)</span>
+      </div>
+      <button type="submit" class="btn btn-outline-info mt-3">Submit</button>
+      <div class="mt-3">
+        {% if output < 18.5 %} <div class="alert alert-primary" role="alert">
+          You are underweight as your bmi is {{output}} .The World Health Organisation (WHO) regards a healthy adult BMI to be
+          between 18.5 and 25.You should maintain your weight between {{w1}} and {{w2}} to keep yourself healthy.
+        {% endif %} 
+        {% if output > 18.5 and output < 25 %} <div class="alert alert-success" role="alert">
+            You are overweight as your bmi is {{output}} .The World Health Organisation (WHO) regards a healthy adult BMI to be
+            between 18.5 and 25.
+        {% endif %} 
+        {% if output > 25 and output < 29.9 %} <div class="alert alert-warning" role="alert">
+            You are overweight as your bmi is {{output}} .The World Health Organisation (WHO) regards a healthy adult BMI to be
+            between 18.5 and 25.You should maintain your weight between {{w1}} and {{w2}} to keep yourself healthy.
+        {% endif %}
+        {% if output > 29.9 %} <div class="alert alert-danger" role="alert">
+          You are obese as your bmi is {{output}} .The World Health Organisation (WHO) regards a healthy adult BMI to be
+          between 18.5 and 25.You should maintain your weight between {{w1}} and {{w2}} to keep yourself healthy.
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
